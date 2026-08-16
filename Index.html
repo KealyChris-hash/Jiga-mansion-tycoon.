@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JIGA MANSION TYCOON </title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+  body { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); color: white; padding: 10px; }
+  h1 { text-align: center; color: #FFD700; margin: 8px 0; text-shadow: 0 0 10px #FFD700; font-size: 20px; }
+  .stats { background: #0f0f1a; padding: 12px; border-radius: 15px; margin-bottom: 10px; border: 2px solid #FFD700; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+  .stat-box { text-align: center; }
+  .stat-box span { display: block; font-size: 12px; color: #aaa; }
+  .money { color: #00FF00; font-size: 18px; font-weight: bold; }
+  .container { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 8px; }
+  .panel { background: #1a1a2e; padding: 10px; border-radius: 12px; border: 1px solid #444; }
+  .panel h2 { color: #FFD700; margin-bottom: 6px; font-size: 13px; text-align: center; }
+  button { width: 100%; padding: 8px; margin: 3px 0; background: linear-gradient(90deg, #FFD700, #FF8C00); border: none; border-radius: 8px; color: #000; font-weight: bold; cursor: pointer; font-size: 11px; }
+  button:hover { transform: scale(1.04); box-shadow: 0 0 8px #FFD700; }
+  .item { display: flex; justify-content: space-between; font-size: 10px; margin: 2px 0; }
+  #message { text-align: center; margin-top: 6px; color: #00FF00; font-weight: bold; height: 18px; font-size: 13px; }
+  .phone-app { background: #000; padding: 6px; border-radius: 8px; margin-top: 5px; font-size: 10px; min-height: 80px; }
+  @media (max-width: 1300px) { .container { grid-template-columns: 1fr 1fr 1fr; } .stats { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { .container { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>🏰 JIGA MANSION TYCOON v2.0 🚁👑</h1>
+
+<div class="stats">
+  <div class="stat-box"><span>💰 MONEY</span><div class="money" id="money">₦5,000,000</div></div>
+  <div class="stat-box"><span>🏰 MANSION</span><div id="mansion">Jiga Mini-Mansion</div></div>
+  <div class="stat-box"><span>🚗 GARAGE</span><div id="cars">2 Cars</div></div>
+  <div class="stat-box"><span>📈 FAME</span><div id="rep">100</div></div>
+</div>
+
+<div class="container">
+  <!-- MANSION BUILDER -->
+  <div class="panel">
+    <h2>🏰 BUILD MANSION</h2>
+    <div class="item"><span>Swimming Pool ₦2M</span> <button onclick="buyMansionPart('Pool', 2000000)">Build</button></div>
+    <div class="item"><span>Helipad ₦5M</span> <button onclick="buyMansionPart('Helipad', 5000000)">Build</button></div>
+    <div class="item"><span>Cinema Room ₦3M</span> <button onclick="buyMansionPart('Cinema', 3000000)">Build</button></div>
+    <div class="item"><span>VIP Club ₦10M</span> <button onclick="buyMansionPart('Club', 10000000)">Build</button></div>
+    <div class="item"><span>Airport ₦50M</span> <button onclick="buyMansionPart('Airport', 50000000)">Build</button></div>
+    <div class="item"><span>Staff: Chef ₦500K</span> <button onclick="hireStaff('Chef', 500000)">Hire</button></div>
+  </div>
+
+  <!-- KITCHEN & BUSINESS -->
+  <div class="panel">
+    <h2>👨‍🍳 KITCHEN EMPIRE</h2>
+    <button onclick="cookFood()">Cook Jollof +₦500</button>
+    <button onclick="cookBurger()">2-Headed Burger +₦300K</button>
+    <button onclick="cookDiamond()">Diamond Steak +₦1M</button>
+    <button onclick="hostParty()">Host Party +₦5M</button>
+    <p style="font-size:10px;">Need Chef to auto-cook</p>
+  </div>
+
+  <!-- GARAGE -->
+  <div class="panel">
+    <h2>🚗 SUPERCAR GARAGE</h2>
+    <div class="item"><span>Corolla ₦2M</span> <button onclick="buyCar('Toyota Corolla', 2000000)">Buy</button></div>
+    <div class="item"><span>Tesla ₦15M</span> <button onclick="buyCar('Tesla Model X', 15000000)">Buy</button></div>
+    <div class="item"><span>Urus ₦20M</span> <button onclick="buyCar('Lamborghini Urus', 20000000)">Buy</button></div>
+    <div class="item"><span>Maki G-Wagon ₦25M</span> <button onclick="buyCar('Jiga Maki G-Wagon', 25000000)">Buy</button></div>
+    <div class="item"><span>Rolls ₦50M</span> <button onclick="buyCar('Rolls Royce', 50000000)">Buy</button></div>
+    <button onclick="driveCar()">🚗 Drive & Flex +₦50K</button>
+  </div>
+
+  <!-- JIGA MARKET -->
+  <div class="panel">
+    <h2>🛒 JIGA MEGA-MARKET</h2>
+    <div class="item"><span>Ingredients ₦1K</span> <button onclick="buyItem(1000)">Buy</button></div>
+    <div class="item"><span>Premium Ingredients ₦50K</span> <button onclick="buyItem(50000)">Buy</button></div>
+    <div class="item"><span>Gold Decor ₦1M</span> <button onclick="buyItem(1000000)">Buy</button></div>
+    <div class="item"><span>HELICOPTER ₦10M</span> <button onclick="buyHeli()">Buy</button></div>
+  </div>
+
+  <!-- iJIGA PHONE PRO MAX -->
+  <div class="panel">
+    <h2>📱 iJIGA PHONE PRO MAX</h2>
+    <button onclick="orderUber()">🚕 Uber -₦2K</button>
+    <button onclick="scrollIG()">📸 IG +20 Fame</button>
+    <button onclick="playGame()">🎮 Play Game</button>
+    <button onclick="openMessages()">💬 Messages</button>
+    <button onclick="videoCall()">📹 Video Call Fans</button>
+    <button onclick="crypto()">₿ Crypto Trade</button>
+    <div class="phone-app" id="phoneScreen">Welcome CEO Kosy</div>
+  </div>
+</div>
+
+<div id="message"></div>
+
+<script>
+let money = 5000000;
+let mansionLevel = 1;
+let mansionParts = ["Mini-Mansion"];
+let reputation = 100;
+let hasHeli = false;
+let ownedCars = ["Toyota Corolla"];
+let currentCar = "Toyota Corolla";
+let hasChef = false;
+
+const mansionNames = ["Jiga Mini-Mansion", "Jiga Luxury Mansion", "Jiga Mega Mansion", "JIGA BILLIONAIRE COMPOUND"];
+
+function updateUI() {
+  document.getElementById("money").innerText = "₦" + money.toLocaleString();
+  document.getElementById("mansion").innerText = mansionNames[mansionLevel-1] + " - " + mansionParts.join(", ");
+  document.getElementById("cars").innerText = ownedCars.length + " Cars";
+  document.getElementById("rep").innerText = reputation;
+}
+
+function showMsg(text) {
+  document.getElementById("message").innerText = text;
+  setTimeout(() => document.getElementById("message").innerText = "", 3000);
+}
+
+function setPhoneScreen(text) {
+  document.getElementById("phoneScreen").innerHTML = text;
+}
+
+// MANSION
+function buyMansionPart(part, cost) {
+  if (money >= cost && !mansionParts.includes(part)) {
+    money -= cost; mansionParts.push(part);
+    if (mansionParts.length > mansionLevel * 2) mansionLevel++;
+    showMsg(part + " Built! Mansion Upgraded!");
+  } else showMsg("Already built or no money!");
+  updateUI();
+}
+
+// BUSINESS
+function cookFood() {
+  money += 500; reputation += 2; showMsg("Sold Jollof +₦500");
+  updateUI();
+}
+function cookBurger() {
+  money += 300000; reputation += 50; showMsg("2-HEADED BURGER! +₦300K");
+  updateUI();
+}
+function cookDiamond() {
+  if (money >= 100000) { money -= 100000; money += 1000000; reputation += 200; showMsg("DIAMOND STEAK! +₦1M"); }
+  else showMsg("Need ₦100K for ingredients");
+  updateUI();
+}
+function hostParty() {
+  if (mansionParts.includes('Club')) {
+    money += 5000000; reputation += 500; showMsg("PARTY! Celebs came! +₦5M");
+  } else showMsg("Build VIP Club first!");
+  updateUI();
+}
+function hireStaff(role, cost) {
+  if (money >= cost && !hasChef) { money -= cost; hasChef = true; showMsg(role + " Hired! Auto-income +₦10K/min"); }
+  else showMsg("Already hired or no money");
+  updateUI();
+}
+
+// CARS & HELI
+function buyCar(name, cost) {
+  if (money >= cost && !ownedCars.includes(name)) {
+    money -= cost; ownedCars.push(name); currentCar = name; reputation += 100;
+    showMsg("Bought " + name + "!");
+  } else if (ownedCars.includes(name)) {
+    currentCar = name; showMsg("Driving " + name);
+  } else showMsg("Need ₦" + cost.toLocaleString());
+  updateUI();
+}
+function driveCar() {
+  reputation += 200; money += 50000;
+  showMsg("Cruising " + currentCar + "! +₦50K +200 Fame");
+  updateUI();
+}
+function buyHeli() {
+  if (money >= 10000000 && !hasHeli) {
+    money -= 10000000; hasHeli = true; mansionParts.push("Helipad");
+    showMsg("HELICOPTER + HELIPAD BOUGHT! 🚁");
+  } else showMsg("Need ₦10M");
+  updateUI();
+}
+
+// PHONE
+function orderUber() { if (money >= 2000) { money -= 2000; setPhoneScreen("🚕 Uber to Lekki in 5min"); } else setPhoneScreen("No money"); updateUI(); }
+function scrollIG() { reputation += 20; setPhoneScreen("📸 2M likes! You’re trending #JigaMansion"); updateUI(); }
+function playGame() { let win = Math.floor(Math.random()*500000); money += win; setPhoneScreen("🎮 Won ₦" + win.toLocaleString() + " in Jiga Casino!"); updateUI(); }
+function openMessages() { setPhoneScreen("💬 Dad: Proud of you son<br>💬 Davido: Party at my place?<br>💬 Bank: ₦1M credited"); }
+function videoCall() { reputation += 100; setPhoneScreen("📹 Live with 500K viewers! +100 Fame"); updateUI(); }
+function crypto() { let gain = Math.floor(Math.random()*2000000) - 500000; money += gain; setPhoneScreen("₿ Crypto: " + (gain>0?"+":"") + "₦" + gain.toLocaleString()); updateUI(); }
+
+// AUTO INCOME
+setInterval(() => { if (hasChef) { money += 10000; updateUI(); } }, 60000);
+
+updateUI();
+</script>
+</body>
+  </html>
